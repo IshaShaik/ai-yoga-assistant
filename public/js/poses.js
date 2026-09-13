@@ -459,7 +459,108 @@ function showAuth(mode = "login") {
   $("authSubmit").textContent = mode === "login" ? "Login" : "Create account";
   document.querySelectorAll("[data-auth-tab]").forEach(b => b.classList.toggle("active", b.dataset.authTab === mode));
   $("authMessage").textContent = "";
+  $("forgotPasswordLink")?.classList.toggle("hidden", mode !== "login");
   showModal("authModal");
+}
+
+// ---- Forgot Password (email OTP) ------------------------------------------
+// Two-step flow inside its own modal: (1) email -> "Send OTP" calls
+// POST /api/auth/forgot-password, which emails a 6-digit code that expires
+// in 10 minutes; (2) that code + a new password -> POST
+// /api/auth/reset-password, which verifies the code server-side and, only
+// if it's correct, hashes and saves the new password. Nothing here ever
+// touches subscription/auth state directly — a successful reset just drops
+// the user back on the normal login form.
+let forgotEmailForReset = "";
+
+function openForgotPassword() {
+  closeModal("authModal");
+  forgotEmailForReset = "";
+  $("forgotStep1").classList.remove("hidden");
+  $("forgotStep2").classList.add("hidden");
+  $("forgotEmail").value = $("authEmail")?.value.trim() || "";
+  $("forgotEmailMessage").textContent = "";
+  $("forgotEmailMessage").style.color = "";
+  $("forgotResetMessage").textContent = "";
+  $("forgotOtp").value = "";
+  $("forgotNewPassword").value = "";
+  showModal("forgotModal");
+}
+
+async function submitForgotEmail(event) {
+  event.preventDefault();
+  const btn = $("forgotSendBtn");
+  const msg = $("forgotEmailMessage");
+  const email = $("forgotEmail").value.trim();
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  msg.style.color = "";
+  msg.textContent = "";
+  try {
+    const data = await api("/api/auth/forgot-password", { method: "POST", body: JSON.stringify({ email }) });
+    forgotEmailForReset = email;
+    $("forgotEmailDisplay").textContent = email;
+    $("forgotStep1").classList.add("hidden");
+    $("forgotStep2").classList.remove("hidden");
+    $("forgotResetMessage").style.color = "#159765";
+    $("forgotResetMessage").textContent = data.message;
+    $("forgotOtp").focus();
+  } catch (error) {
+    msg.style.color = "#e05252";
+    msg.textContent = error.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Send OTP";
+  }
+}
+
+async function submitPasswordReset(event) {
+  event.preventDefault();
+  const btn = $("forgotResetBtn");
+  const msg = $("forgotResetMessage");
+  const otp = $("forgotOtp").value.trim();
+  const newPassword = $("forgotNewPassword").value;
+  btn.disabled = true;
+  btn.textContent = "Resetting...";
+  try {
+    await api("/api/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify({ email: forgotEmailForReset, otp, newPassword })
+    });
+    closeModal("forgotModal");
+    showAuth("login");
+    $("authEmail").value = forgotEmailForReset;
+    $("authPassword").value = "";
+    $("authMessage").style.color = "#159765";
+    $("authMessage").textContent = "Password reset! Please log in with your new password.";
+  } catch (error) {
+    msg.style.color = "#e05252";
+    msg.textContent = error.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Reset Password";
+  }
+}
+
+let resendCooldownTimer = null;
+async function resendForgotOtp() {
+  const btn = $("forgotResendBtn");
+  const msg = $("forgotResetMessage");
+  btn.disabled = true;
+  try {
+    const data = await api("/api/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({ email: forgotEmailForReset })
+    });
+    msg.style.color = "#159765";
+    msg.textContent = data.message;
+  } catch (error) {
+    msg.style.color = "#e05252";
+    msg.textContent = error.message;
+  } finally {
+    clearTimeout(resendCooldownTimer);
+    resendCooldownTimer = setTimeout(() => { btn.disabled = false; }, 30000);
+  }
 }
 
 async function submitAuth(event) {
@@ -1475,6 +1576,18 @@ $("pricingBtn")?.addEventListener("click", () => state.user ? openPremium() : sh
 $("freePlanBtn")?.addEventListener("click", () => $("poseGrid")?.scrollIntoView({ behavior: "smooth" }));
 $("demoBtn")?.addEventListener("click", () => state.poses[0] && openLanguageChooser(state.poses[0]));
 $("authForm")?.addEventListener("submit", submitAuth);
+// ---- Logout Functionality ----
+function handleLogout() {
+  localStorage.removeItem("yoga_token");
+  localStorage.removeItem("yoga_user");
+  state.token = null;
+  state.user = null;
+  closeModal("dashModal");
+  renderAuthButton();
+  refreshDashboard();
+  renderPoses();
+}
+$("logoutBtn")?.addEventListener("click", handleLogout);
 $("finishPose")?.addEventListener("click", finishPose);
 $("practiceAgainBtn")?.addEventListener("click", practiceAgain);
 $("recalibrateBtn")?.addEventListener("click", recalibrateTarget);
@@ -1503,6 +1616,11 @@ document.querySelectorAll("[data-close]").forEach(btn => {
   });
 });
 document.querySelectorAll("[data-auth-tab]").forEach(btn => btn.addEventListener("click", () => showAuth(btn.dataset.authTab)));
+$("forgotPasswordLink")?.addEventListener("click", openForgotPassword);
+$("forgotEmailForm")?.addEventListener("submit", submitForgotEmail);
+$("forgotResetForm")?.addEventListener("submit", submitPasswordReset);
+$("forgotResendBtn")?.addEventListener("click", resendForgotOtp);
+$("backToLoginBtn")?.addEventListener("click", () => { closeModal("forgotModal"); showAuth("login"); });
 document.querySelectorAll(".modal").forEach(modal => {
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
@@ -1531,8 +1649,32 @@ $("startPayment")?.addEventListener("click", startPremiumPayment);
 (async function boot() {
   if (!poseGrid) return;
   loadCompletedToday();
+
+  // Verify the token against the server BEFORE the pose grid is rendered
+  // for the first time — do this first, not "render once from the cached
+  // localStorage user, then correct it after the network call resolves".
+  // A subscription can expire, or be changed from another device, between
+  // visits, so state.user.subscriptionStatus must only ever reflect what
+  // the server just confirmed. Checking first closes the brief window
+  // where a fast click on a premium pose could otherwise slip past the
+  // (correct, but momentarily stale) locked/unlocked state on refresh.
+  if (state.token) {
+    try {
+      const data = await api("/api/auth/me");
+      state.user = data.user;
+      localStorage.setItem("yoga_user", JSON.stringify(state.user));
+    } catch {
+      localStorage.removeItem("yoga_token");
+      localStorage.removeItem("yoga_user");
+      state.token = null;
+      state.user = null;
+    }
+    loadCompletedToday();
+  }
+
   await refreshDashboard();
   await loadPoses();
+
   // Home hero "Try Free Pose" opens the existing first/free pose flow.
   if (new URLSearchParams(window.location.search).get("pricing") === "1") {
     setTimeout(() => openPremium(), 200);
@@ -1548,19 +1690,19 @@ $("startPayment")?.addEventListener("click", startPremiumPayment);
       || state.poses[0];
     if (heroPose) setTimeout(() => openLanguageChooser(heroPose), 200);
   }
-  if (state.token) {
-    try {
-      const data = await api("/api/auth/me");
-      state.user = data.user;
-      localStorage.setItem("yoga_user", JSON.stringify(state.user));
-      loadCompletedToday();
-      await refreshDashboard();
-      renderPoses();
-    } catch {
-      localStorage.removeItem("yoga_token");
-      localStorage.removeItem("yoga_user");
-      state.token = null; state.user = null;
-    }
+
+  // Deep link from the nav "Login / Sign up" button on every other page
+  // (common.js sends ?auth=login here). Opens the modal immediately and
+  // — unlike the old inline onclick + poses.js-listener combo — nothing
+  // else on this page navigates away afterwards, so it simply stays open
+  // until the user submits or closes it. Only opens if not already logged
+  // in, and the query param is stripped so a later refresh doesn't reopen it.
+  const authParam = new URLSearchParams(window.location.search).get("auth");
+  if ((authParam === "login" || authParam === "signup") && !state.user) {
+    showAuth(authParam);
+    const url = new URL(window.location.href);
+    url.searchParams.delete("auth");
+    window.history.replaceState({}, "", url);
   }
 })();
 
