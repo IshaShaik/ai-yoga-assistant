@@ -14,9 +14,28 @@ const paymentRoutes = require("./routes/payment");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  "http://localhost:5000",
+  "http://localhost:3000",
+  "https://localhost",
+  "capacitor://localhost"
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || true,
-  credentials: false
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.indexOf(origin) !== -1 ||
+      origin.endsWith(".onrender.com") ||
+      (process.env.CLIENT_URL && origin === process.env.CLIENT_URL)
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Mobile app aur local testing dono allow karega
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // The Razorpay webhook must be verified against the exact raw bytes
