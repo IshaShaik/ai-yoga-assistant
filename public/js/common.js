@@ -23,6 +23,30 @@ function updateCommonAuth() {
     }
   }
 }
+// The old markup wired this button with an inline
+// onclick="window.location.href='/pages/poses.html'" attribute. On
+// pages/poses.html itself, poses.js ALSO attaches its own click listener
+// (opening the login modal in-place) to the same button — so both handlers
+// fired on every click: the inline one kicked off a full-page navigation to
+// poses.html while the modal was still being opened, and the reload wiped
+// it out a split second later. That's the "login page flashes and
+// immediately closes" bug. The fix is to have exactly one handler per page:
+// this one (attached in JS, not HTML) for every page except poses.html,
+// where poses.js already owns the button.
+function setupAuthButton() {
+  const btn = $common("authBtn");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const user = JSON.parse(localStorage.getItem("yoga_user") || "null");
+    // Logged-in users land on the dashboard; logged-out users go straight
+    // to the login modal on the poses page via ?auth=login (read by
+    // poses.js's boot()), so the login form is open and stays open — no
+    // extra click needed, and nothing here can race a navigation the way
+    // the old inline handler did.
+    window.location.href = user ? "/pages/dashboard.html" : "/pages/poses.html?auth=login";
+  });
+}
+
 function setupMobileNav() {
   const toggle = $common("mobileNavToggle");
   const nav = $common("siteNav");
@@ -49,7 +73,7 @@ function revealOnScroll() {
   }, {threshold:.14});
   items.forEach(el=>io.observe(el));
 }
-document.addEventListener("DOMContentLoaded", ()=>{ updateCommonAuth(); setupMobileNav(); revealOnScroll(); });
+document.addEventListener("DOMContentLoaded", ()=>{ updateCommonAuth(); setupAuthButton(); setupMobileNav(); revealOnScroll(); });
 
 
 // Site-wide hands-free voice controller. Pose-specific commands are delegated
