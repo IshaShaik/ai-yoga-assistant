@@ -1,0 +1,1 @@
+Replace this file with your own yoga woman image named yoga-feature.jpg. Home sections reference /assets/images/yoga-feature.jpg.

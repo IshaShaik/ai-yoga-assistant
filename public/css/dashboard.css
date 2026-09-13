@@ -1,0 +1,319 @@
+/* =========================================
+   RESPONSIVE DESIGN
+   Laptop → Tablet → Mobile
+   ========================================= */
+
+/* Basic responsive setup */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Videos responsive */
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* Containers */
+.container,
+section,
+main {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ==============================
+   TABLET
+   ============================== */
+
+@media (max-width: 1024px) {
+
+  .container {
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .navbar {
+    padding: 15px 25px;
+  }
+}
+
+
+/* ==============================
+   MOBILE
+   ============================== */
+
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 12px 18px;
+  }
+
+  /* Flex layouts become vertical */
+  .row,
+  .hero,
+  .content,
+  .about,
+  .features,
+  .cards {
+    flex-direction: column;
+  }
+
+  /* Grids become single column */
+  .grid,
+  .cards-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sections */
+  section {
+    padding: 50px 20px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  /* Text */
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Buttons */
+  button,
+  .btn {
+    max-width: 100%;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Cards */
+  .card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+}
+
+
+/* ==============================
+   SMALL MOBILE
+   ============================== */
+
+@media (max-width: 480px) {
+
+  section {
+    padding: 40px 15px;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+  }
+
+}
+:root{--ink:#163a35;--muted:#6c817b;--green:#2f8f78;--line:#dcebe5;--bg:#f5faf7}*{box-sizing:border-box}body{margin:0;font-family:"DM Sans",sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0%,#dff4ea,transparent 35%),var(--bg);min-height:100vh}.shell{width:min(1120px,calc(100% - 36px));margin:auto}.glass{background:#ffffffc7;backdrop-filter:blur(16px);border:1px solid #fff;box-shadow:0 20px 60px #173e3310}.site-header{position:sticky;top:14px;z-index:20;width:min(1220px,calc(100% - 28px));margin:14px auto 0;padding:12px 18px;border-radius:22px;display:flex;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;white-space:nowrap}.brand strong{font:700 15px Manrope}.brand span{display:block;color:#7b918b;font-size:10px}.logo-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;color:#fff;background:linear-gradient(135deg,#277c68,#8ccdb8)}.site-header nav{display:flex;justify-content:center;gap:4px;flex:1}.site-header nav a{color:#526b65;text-decoration:none;padding:10px 11px;border-radius:12px;font-weight:600;font-size:14px}.site-header nav a:hover{background:#e7f4ef;color:var(--green)}.mobile-nav-toggle{display:none;border:0;background:transparent;font-size:23px;margin-left:auto}.nav-login{border:0;border-radius:13px;padding:11px 15px;background:#2f8f78;color:#fff;font-weight:700}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;text-decoration:none;border-radius:13px;padding:12px 18px;font-weight:700;cursor:pointer}.btn-primary{background:#2f8f78;color:#fff}.eyebrow{font-size:11px;letter-spacing:.18em;font-weight:800;color:#3a8974}.page{padding:75px 0 110px}.page-head{text-align:center;max-width:760px;margin:0 auto 45px}.page-head h1{font:800 clamp(42px,6vw,68px)/1 Manrope;margin:13px 0;letter-spacing:-.05em}.page-head h1 em{font-style:normal;color:var(--green)}.page-head p{color:var(--muted);font-size:17px;line-height:1.7}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{padding:25px;border-radius:22px}.stat span{color:#71847f;font-size:13px}.stat strong{display:block;font:800 38px Manrope;margin-top:12px}.panel{margin-top:18px;padding:28px;border-radius:25px}.panel h2{font:700 23px Manrope;margin-top:0}.panel p{color:var(--muted);line-height:1.7}.hidden{display:none!important}.progress-chart{height:240px;display:flex;align-items:end;gap:12px;border-bottom:1px solid var(--line);padding:20px 10px 0}.bar-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:9px}.bar-col span{width:70%;max-width:45px;background:linear-gradient(#7bc5ad,#2f8f78);border-radius:10px 10px 0 0;min-height:8px}.bar-col small{color:#71847f}.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.benefit{padding:28px;border-radius:23px}.benefit-icon{font-size:30px}.benefit h3{font:700 21px Manrope}.benefit p{color:var(--muted);line-height:1.65}.feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.feature{padding:30px;border-radius:25px}.feature h3{font:700 22px Manrope}.feature p{color:var(--muted);line-height:1.7}.quote{text-align:center;padding:35px;border-radius:25px;margin-top:20px;font:600 22px/1.5 Manrope}.cta{text-align:center;margin-top:45px}.site-footer{border-top:1px solid var(--line);padding:24px;background:#eef6f2}.footer-inner{display:flex;justify-content:space-between;color:#71847f;font-size:13px}
+@media(max-width:900px){.site-header nav{display:none;position:absolute;top:68px;left:8px;right:8px;background:#fff;padding:10px;border-radius:18px;flex-direction:column}.site-header nav.open{display:flex}.mobile-nav-toggle{display:block}.nav-login{display:none}.cards{grid-template-columns:1fr 1fr}.benefit-grid,.feature-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.shell{width:calc(100% - 28px)}.page{padding-top:50px}.cards{grid-template-columns:1fr}.page-head h1{font-size:45px}.quote{font-size:18px}.footer-inner{flex-direction:column;gap:7px}}
+
+.voice-cmd-fab{position:fixed;right:20px;bottom:20px;z-index:9999;width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:linear-gradient(135deg,#1687e7,#35b9ff);color:#fff;font-size:21px;box-shadow:0 10px 30px rgba(22,135,231,.35);transition:.2s}.voice-cmd-fab:hover{transform:scale(1.06)}.voice-cmd-fab.listening{background:#e84d5b}.voice-cmd-pulse{position:absolute;inset:-6px;border:2px solid rgba(232,77,91,.6);border-radius:50%;opacity:0}.voice-cmd-fab.listening .voice-cmd-pulse{animation:voiceCmdPulse 1.5s ease-out infinite}@keyframes voiceCmdPulse{0%{opacity:.7;transform:scale(.85)}100%{opacity:0;transform:scale(1.5)}}
+/* ==========================================
+   MOBILE RESPONSIVE FIX
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Main sections */
+    section {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    /* ------------------------------------------
+       HERO IMAGE / YOGA GIRL IMAGE
+       ------------------------------------------ */
+
+    .hero img,
+    .hero-image img,
+    .hero-visual img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* If the image itself is inside a container */
+    .hero-image,
+    .hero-visual {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    /* ------------------------------------------
+       LOTUS LOGO
+       ------------------------------------------ */
+
+    .logo img,
+    .logo-icon img,
+    .lotus-logo,
+    .lotus-logo img {
+        width: 38px;
+        height: 38px;
+        max-width: 38px;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 100%;
+    }
+
+    /* ------------------------------------------
+       HERO TEXT
+       ------------------------------------------ */
+
+    .hero h1 {
+        font-size: clamp(2rem, 9vw, 3rem);
+        line-height: 1.1;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    .hero p {
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    /* ------------------------------------------
+       BUTTONS
+       ------------------------------------------ */
+
+    .hero button,
+    .hero .btn {
+        width: 100%;
+        max-width: 100%;
+    }
+
+}
+
+
+/* ==========================================
+   SMALL PHONE
+   ========================================== */
+
+@media (max-width: 480px) {
+
+    .logo img,
+    .logo-icon img,
+    .lotus-logo,
+    .lotus-logo img {
+        width: 32px;
+        height: 32px;
+        max-width: 32px;
+    }
+
+    .hero {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-image,
+    .hero-visual {
+        width: 100%;
+        padding: 0;
+    }
+
+    .hero-image img,
+    .hero-visual img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+}
