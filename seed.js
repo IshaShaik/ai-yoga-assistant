@@ -95,31 +95,31 @@ const imageMap = {
 
   "Plank Pose": "/assets/images/Plank Pose.png",
 
-  "Side Plank": "/assets/images/pose-placeholder.svg",
+  "Side Plank": "/assets/images/side Plank.png",
 
-  "Seated Forward Bend": "/assets/images/pose-placeholder.svg",
+  "Seated Forward Bend": "/assets/images/seated forward bend.png",
 
-  "Pigeon Pose": "/assets/images/pose-placeholder.svg",
+  "Pigeon Pose": "/assets/images/Pigeon Pose.png",
 
-  "Eagle Pose": "/assets/images/pose-placeholder.svg",
+  "Eagle Pose": "/assets/images/Eagle Pose.png",
 
-  "Crescent Pose": "/assets/images/pose-placeholder.svg",
+  "Crescent Pose": "/assets/images/Crescent Pose.png",
 
-  "Crow Pose": "/assets/images/pose-placeholder.svg",
+  "Crow Pose": "/assets/images/Crow Pose.png",
 
-  "Half Moon Pose": "/assets/images/pose-placeholder.svg",
+  "Half Moon Pose": "/assets/images/Half Moon Pose.png",
 
-  "Corpse Pose": "/assets/images/pose-placeholder.svg",
+  "Corpse Pose": "/assets/images/Corpse Pose.png",
 
-  "Extended Side Angle": "/assets/images/pose-placeholder.svg",
+  "Extended Side Angle": "/assets/images/Extended Side Angle.png",
 
-  "Revolved Triangle": "/assets/images/pose-placeholder.svg",
+  "Revolved Triangle": "/assets/images/Revolved Triangle.png",
 
-  "Chair Pose": "/assets/images/pose-placeholder.svg",
+  "Chair Pose": "/assets/images/Chair Pose.png",
 
-  "Warrior III": "/assets/images/pose-placeholder.svg",
+  "Warrior III": "/assets/images/Warrior III.png",
 
-  "Goddess Pose": "/assets/images/pose-placeholder.svg",
+  "Goddess Pose": "/assets/images/Goddess Pose.png",
 
   "Lotus Pose": "/assets/images/hero-yoga.png"
 

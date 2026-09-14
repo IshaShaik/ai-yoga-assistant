@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Yoga Assistant — Poses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/poses.css"></head><body>
+<div class="pose-page-bg"></div>
+<header class="site-header glass">
+  <a class="brand" href="/index.html" aria-label="AI Yoga Assistant home">
+    <div class="logo-mark">✦</div>
+    <div><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div>
+  </a>
+  <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="siteNav">☰</button>
+  <nav id="siteNav">
+    <a href="/index.html">Home</a>
+    <a href="/pages/poses.html">Poses / Post</a>
+    <a href="/pages/progress.html">Progress</a>
+    <a href="/pages/benefits.html">Benefits</a>
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/about.html">About</a>
+  </nav>
+  <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
+</header>
+
+<main class="shell pose-library-page">
+  <section class="page-hero reveal"><div><span class="eyebrow">AI PRACTICE STUDIO</span><h1>Choose a pose.<br><em>Let AI guide you.</em></h1><p>Open a pose, allow camera access and follow your real-time AI guidance. The existing pose detection, progress, voice and music systems stay connected here.</p></div>
+  <div class="practice-note glass"><b>Hands-free control</b><span>Enable the 🎤 button and say “Next Pose”, “Mute AI”, “Unmute AI”, “Mute Music”, “Open Progress” or “Home”.</span></div></section>
+  <section class="library-section">
+    <div class="section-head"><div><span class="eyebrow">POSE LIBRARY</span><h2>26 Yoga Poses</h2><p>Mountain Pose &amp; Lotus Pose are free. Premium poses unlock with the existing subscription flow.</p></div><div class="search-box glass"><span>⌕</span><input id="poseSearch" type="search" placeholder="Search poses or benefits..."></div></div>
+    <div id="poseGrid" class="pose-grid"></div>
+  </section>
+</main>
+  <!-- Auth modal -->
+  <div class="modal" id="authModal" aria-hidden="true">
+    <div class="modal-card glass">
+      <button class="modal-close" data-close="authModal">×</button>
+      <div class="modal-tabs"><button class="active" data-auth-tab="login">Login</button><button data-auth-tab="signup">Create account</button></div>
+      <form id="authForm">
+        <h2 id="authTitle">Welcome back</h2>
+        <label id="nameLabel" class="hidden">Name<input id="authName" type="text" autocomplete="name"></label>
+        <label>Email<input id="authEmail" type="email" required autocomplete="email"></label>
+        <label>Password<input id="authPassword" type="password" minlength="6" required autocomplete="current-password"></label>
+        <button type="button" id="forgotPasswordLink" class="text-link forgot-link">Forgot password?</button>
+        <button type="button" id="adminCodeToggle" class="hidden admin-code-link" data-admin-toggle>Have an admin access code?</button>
+        <label id="adminCodeRow" class="hidden">Admin Access Code<input id="authAdminCode" type="password" autocomplete="off" placeholder="Optional"></label>
+        <button class="btn btn-primary full" type="submit" id="authSubmit">Login</button>
+        <p class="form-message" id="authMessage"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Forgot Password modal (email OTP flow) -->
+  <div class="modal" id="forgotModal" aria-hidden="true">
+    <div class="modal-card glass">
+      <button class="modal-close" data-close="forgotModal">×</button>
+      <h2>Reset your password</h2>
+
+      <div id="forgotStep1">
+        <p class="modal-subtext">Enter your registered email address and we'll send you a 6-digit code.</p>
+        <form id="forgotEmailForm">
+          <label>Email<input id="forgotEmail" type="email" required autocomplete="email"></label>
+          <button class="btn btn-primary full" type="submit" id="forgotSendBtn">Send OTP</button>
+          <p class="form-message" id="forgotEmailMessage"></p>
+        </form>
+      </div>
+
+      <div id="forgotStep2" class="hidden">
+        <p class="modal-subtext">Enter the 6-digit code sent to <b id="forgotEmailDisplay"></b> along with your new password. The code expires in 10 minutes.</p>
+        <form id="forgotResetForm">
+          <label>6-digit code<input id="forgotOtp" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required autocomplete="one-time-code"></label>
+          <label>New Password<input id="forgotNewPassword" type="password" minlength="6" required autocomplete="new-password"></label>
+          <button class="btn btn-primary full" type="submit" id="forgotResetBtn">Reset Password</button>
+          <div class="forgot-links-row">
+            <button type="button" class="text-link" id="forgotResendBtn">Resend code</button>
+            <button type="button" class="text-link" id="backToLoginBtn">Back to login</button>
+          </div>
+          <p class="form-message" id="forgotResetMessage"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium modal -->
+  <div class="modal" id="premiumModal" aria-hidden="true">
+    <div class="modal-card glass premium-modal">
+      <button class="modal-close" data-close="premiumModal">×</button>
+      <div class="premium-icon">✦</div><span class="eyebrow">PREMIUM PLAN</span>
+      <h2>₹99 <small>/ Month</small></h2>
+      <p id="premiumMotivation">Unlock the remaining 24 poses for 30 days.</p>
+      <ul class="check-list"><li>All 26 Yoga Poses</li><li>AI posture correction</li><li>Voice guidance</li><li>Progress tracking</li><li>Ad-free experience</li></ul>
+    <div class="payment-box" id="paymentBox">
+  <p class="upi-note">Pay with Google Pay, any other UPI app, or scan the QR shown at checkout.</p>
+</div>
+      <button class="btn btn-primary full" id="startPayment">Pay ₹99 with UPI / Google Pay</button>
+      <p class="form-message" id="paymentMessage"></p>
+      <small class="legal-note">Payments are processed and verified by Razorpay. Premium unlocks automatically once payment is confirmed.</small>
+    </div>
+  </div>
+
+  <!-- Language chooser modal — shown every time "Start Pose" is clicked -->
+  <div class="modal" id="langModal" aria-hidden="true">
+    <div class="modal-card glass lang-modal">
+      <button class="modal-close" data-close="langModal">×</button>
+      <div class="premium-icon">🗣️</div>
+      <h2 id="langModalTitle">Choose your AI voice language</h2>
+      <p id="langModalSubtitle">You can switch anytime during the session.</p>
+      <div class="lang-choice-grid">
+        <button class="btn btn-soft lang-choice-btn" data-lang-choice="en">🇬🇧 English</button>
+        <button class="btn btn-soft lang-choice-btn" data-lang-choice="hi">🇮🇳 Hinglish (हिंग्लिश)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camera modal -->
+  <div class="modal camera-modal" id="cameraModal" aria-hidden="true">
+    <div class="camera-card glass">
+      <button class="modal-close" data-close="cameraModal">×</button>
+      <div class="camera-header">
+        <div><span class="eyebrow">AI YOGA ASSISTANT</span><h2 id="cameraPoseName">Tree Pose</h2></div>
+        <div class="camera-header-right">
+          <div class="lang-toggle" role="group" aria-label="Voice language">
+            <button data-lang-toggle="en">EN</button>
+            <button data-lang-toggle="hi">हिं</button>
+          </div>
+          <button class="icon-toggle-btn" id="voiceToggleBtn" title="Turn off AI voice">🔊</button>
+          <button class="icon-toggle-btn" id="musicToggleBtn" title="Pause music">🎵</button>
+          <span class="camera-status" id="cameraStatus"><i></i> AI Ready</span>
+        </div>
+      </div>
+
+      <div class="camera-layout">
+        <!-- Reference panel stays visible on the left, even while the camera runs -->
+        <aside class="reference-panel glass">
+          <div class="reference-image">
+            <img id="referenceImg" src="/assets/images/pose-placeholder.svg" alt="Reference pose">
+          </div>
+          <span class="ref-tag" id="refCategory">FREE DEMO</span>
+          <h3 id="refPoseName">Pose Name</h3>
+          <div class="ref-benefits" id="refBenefits"></div>
+          <div class="ref-instructions">
+            <b>How it works</b>
+            <ol>
+              <li>The blue guide structure shows the shape to move into — before your camera even detects you.</li>
+              <li>Step into frame: a box appears around you (red), turning green once you match the pose.</li>
+              <li>Stay in the pose for 25 seconds to complete it.</li>
+            </ol>
+          </div>
+        </aside>
+
+        <div class="camera-stage-wrap">
+          <div class="camera-stage">
+            <video id="cameraVideo" autoplay playsinline muted></video>
+            <canvas id="poseCanvas"></canvas>
+            <div class="countdown-overlay" id="countdownOverlay">
+              <div class="countdown-number" id="countdownNumber">3</div>
+              <div class="countdown-label" id="countdownLabel">Get into this position</div>
+            </div>
+            <div class="camera-overlay top">
+              <span id="feedbackBadge" class="feedback good">● Good Posture!</span>
+              <span class="timer" id="timer">00:00</span>
+            </div>
+            <div class="hold-ring-wrap" id="holdRingWrap">
+              <svg class="hold-ring" viewBox="0 0 80 80">
+                <defs>
+                  <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#5fe0a8"></stop>
+                    <stop offset="100%" stop-color="#12c98a"></stop>
+                  </linearGradient>
+                </defs>
+                <circle class="ring-bg" cx="40" cy="40" r="34"></circle>
+                <circle class="ring-fg" id="ringFg" cx="40" cy="40" r="34"></circle>
+              </svg>
+              <div class="hold-ring-label"><strong id="holdSeconds">0</strong><small>/25s</small></div>
+            </div>
+            <div class="completed-badge" id="completedBadge"><span>✓</span> Completed!</div>
+            <div class="camera-overlay bottom">
+              <div class="voice-box"><b>🔊 Voice Guide</b><span id="voiceText">Align your body inside the frame.</span></div>
+            </div>
+          </div>
+          <div class="camera-actions">
+            <button class="btn btn-soft" id="recalibrateBtn" title="Re-lock the target guide to your current position">⟲ Recalibrate</button>
+            <button class="btn btn-soft" id="practiceAgainBtn" style="display:none">↺ Practice Again</button>
+            <button class="btn btn-primary" id="nextPoseBtn" style="display:none">Next Pose →</button>
+            <button class="btn btn-primary" id="finishPose">Finish Pose</button>
+          </div>
+          <div class="camera-tips"><span>1. Keep your whole body visible</span><span>2. Stand 1.5–2m from camera</span><span>3. Follow the dotted guide skeleton</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post-practice rating & feedback -->
+  <div class="modal" id="feedbackModal" aria-hidden="true">
+    <div class="modal-card glass feedback-modal">
+      <button class="modal-close" data-close="feedbackModal">×</button>
+      <div class="feedback-stars-title">✦</div>
+      <span class="eyebrow">SESSION COMPLETE</span>
+      <h2>How was your yoga session?</h2>
+      <p class="feedback-subtitle">Your feedback helps us make AI Yoga Assistant better.</p>
+      <div id="ratingStars" class="rating-stars" role="radiogroup" aria-label="Rate your session">
+        <button type="button" data-rating="1" aria-label="1 star">★</button><button type="button" data-rating="2" aria-label="2 stars">★</button><button type="button" data-rating="3" aria-label="3 stars">★</button><button type="button" data-rating="4" aria-label="4 stars">★</button><button type="button" data-rating="5" aria-label="5 stars">★</button>
+      </div>
+      <div id="ratingLabel" class="rating-label">Tap a star to rate</div>
+      <textarea id="feedbackComment" maxlength="500" placeholder="Tell us what you liked or what we can improve..." rows="4"></textarea>
+      <button class="btn btn-primary full" id="submitFeedbackBtn">Submit Feedback</button>
+      <button class="skip-feedback" id="skipFeedbackBtn">Maybe later</button>
+      <p class="form-message" id="feedbackMessage"></p>
+    </div>
+  </div>
+
+  <!-- Dashboard quick modal -->
+  <div class="modal" id="dashModal" aria-hidden="true">
+    <div class="modal-card glass">
+      <button class="modal-close" data-close="dashModal">×</button>
+      <span class="eyebrow">MY DASHBOARD</span><h2>Your Yoga Journey</h2>
+      <p id="dashGreeting">Practice consistently to build your streak.</p>
+      <div class="dashboard-mini"><strong id="miniStreak">0</strong><span>day streak</span></div>
+      <div class="progress-line"><span id="miniProgressBar"></span></div>
+      <button class="btn btn-primary full" data-close="dashModal">Back to practice</button>
+      <button class="btn btn-soft full" id="logoutBtn" style="margin-top:10px;color:#ff4d4f;border-color:#ff4d4f40;">Logout</button>
+    </div>
+  </div>
+
+
+<button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands: OFF" aria-label="Toggle voice commands"><span>🎤</span><i></i></button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script type="module" src="/js/poses.js"></script>
+</body></html>

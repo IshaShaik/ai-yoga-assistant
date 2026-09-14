@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="AI Yoga Assistant — real-time pose guidance, voice coaching and progress tracking.">
+<meta name="google-site-verification" content="XkmpOL8e12ehvrmT-szF-PAwBHS6zheyMdtAc8HVgSY" />
+<title>AI Yoga Assistant — Personal AI Yoga Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/home.css"></head><body>
+<div class="ambient-bg"></div>
+<header class="site-header glass">
+  <a class="brand" href="/index.html" aria-label="AI Yoga Assistant home">
+    <div class="logo-mark">✦</div>
+    <div><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div>
+  </a>
+  <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="siteNav">☰</button>
+  <nav id="siteNav">
+    <a href="/index.html">Home</a>
+    <a href="/pages/poses.html">Poses / Post</a>
+    <a href="/pages/progress.html">Progress</a>
+    <a href="/pages/benefits.html">Benefits</a>
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/about.html">About</a>
+  </nav>
+  <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
+</header>
+
+<main>
+<section class="hero shell">
+  <div class="hero-copy reveal-left">
+    <img src="/assets/images/lotus.png" alt="" class="lotus">
+    <div class="eyebrow"><i></i> AI-POWERED WELLNESS</div>
+    <h1>Your personal<br><em>AI Yoga Trainer.</em></h1>
+    <p class="hero-lead">Learn. Improve. Stay consistent.</p>
+    <p class="hero-desc">Real-time posture guidance, live pose detection, spoken coaching and progress tracking — designed to make your home practice feel personal.</p>
+    <div class="hero-actions"><a class="btn btn-primary btn-lg" href="/pages/poses.html">Start Your AI Journey <span>→</span></a><a class="text-link" href="#experience">Explore the experience ↓</a></div>
+    <div class="trust-row"><span>● Camera-based guidance</span><span>● Voice control</span><span>● 26-pose library</span></div>
+  </div>
+  <div class="hero-visual reveal-right">
+    <div class="hero-orb orb-a"></div><div class="hero-orb orb-b"></div>
+    <div class="hero-image-frame hero-image-wrapper" id="heroPoseTrigger" title="Click to try free pose" role="button" tabindex="0" aria-label="Try a free yoga pose">
+      <div class="hero-glow"></div>
+      <div class="hero-ai-ring"></div>
+      <img src="/assets/images/hero-yoga.png" alt="Yoga practitioner" onerror="this.src='/assets/images/pose-placeholder.svg'">
+      <div class="hero-hover-popup"><span>✨ Try Free Pose</span><small>Click to start your free yoga session</small></div>
+      <div class="hero-ai-card glass"><span>✦</span><div><b>AI Pose Detection</b><small>Live body-position analysis</small></div></div>
+      <div class="hero-chip chip-one">◉ Real-time feedback</div>
+      <div class="hero-chip chip-two">◌ Voice guidance</div>
+      <div class="hero-chip chip-three">✓ Progress tracking</div>
+    </div>
+  </div>
+</section>
+<section id="experience" class="experience shell">
+
+  <div class="section-intro center reveal">
+    <span class="eyebrow">YOUR HEALTH &nbsp; • &nbsp; YOUR YOGA &nbsp; • &nbsp; OUR AI</span>
+
+    <h2>
+      Real <em>Benefits.</em> Lasting Change.
+    </h2>
+
+    <p>
+      AI Yoga Assistant helps you practice better, stay consistent
+      and build a healthier, happier you.
+    </p>
+  </div>
+
+
+  <div class="experience-stage">
+
+    <!-- CENTER YOGA IMAGE -->
+    <div class="central-yoga scale-reveal">
+      <div class="image-ring"></div>
+
+      <img
+        src="/assets/images/yoga-ui-reference.png"
+        alt="AI Yoga Assistant"
+        onerror="this.src='/assets/images/hero-yoga.png'"
+      >
+    </div>
+
+
+    <!-- BENEFIT 1 -->
+    <div class="float-card fc-1 reveal-left">
+
+      <div class="benefit-icon lotus-icon">
+        🪷
+      </div>
+
+      <div class="benefit-content">
+        <b>Better Flexibility</b>
+        <small>
+          Improve your mobility and reduce stiffness.
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- BENEFIT 2 -->
+    <div class="float-card fc-2 reveal-right">
+
+      <div class="benefit-icon heart-icon">
+        ♡
+      </div>
+
+      <div class="benefit-content">
+        <b>Improves Health</b>
+        <small>
+          Support your heart, posture and immunity.
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- BENEFIT 3 -->
+    <div class="float-card fc-3 reveal-left">
+
+      <div class="benefit-icon strength-icon">
+        ♧
+      </div>
+
+      <div class="benefit-content">
+        <b>Builds Strength</b>
+        <small>
+          Tone your body and increase your energy.
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- BENEFIT 4 -->
+    <div class="float-card fc-4 reveal-right">
+
+      <div class="benefit-icon sleep-icon">
+        ☾
+      </div>
+
+      <div class="benefit-content">
+        <b>Better Sleep</b>
+        <small>
+          Feel fresh, focused and recharged.
+        </small>
+      </div>
+
+    </div>
+
+
+    <!-- BENEFIT 5 -->
+    <div class="float-card fc-5 reveal">
+
+      <div class="benefit-icon mood-icon">
+        ☺
+      </div>
+
+      <div class="benefit-content">
+        <b>Boosts Mood</b>
+        <small>
+          More positivity, less anxiety.
+        </small>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- 
+<section id="experience" class="experience shell">
+  <div class="section-intro center reveal"><span class="eyebrow">THE AI YOGA EXPERIENCE</span><h2>It watches. It guides.<br><em>You simply practice.</em></h2><p>Your practice stays at the center while AI quietly supports every movement.</p></div>
+  <div class="experience-stage">
+    <div class="central-yoga scale-reveal"><div class="image-ring"></div><img src="/assets/images/yoga-ui-reference.png" alt="Yoga woman placeholder" onerror="this.src='/assets/images/hero-yoga.png'"></div>
+    <div class="float-card fc-1 reveal-left"><b>✦ AI-Powered Guidance</b><small>Personal cues while you practice.</small></div>
+    <div class="float-card fc-2 reveal-right"><b>◎ Real-Time Pose Detection</b><small>Understand your body position live.</small></div>
+    <div class="float-card fc-3 reveal-left"><b>↗ Improve Your Posture</b><small>Clear, simple corrections.</small></div>
+    <div class="float-card fc-4 reveal-right"><b>◌ Breathe • Stretch • Relax</b><small>Keep the experience calm and focused.</small></div>
+    <div class="float-card fc-5 reveal"><b>♡ Practice With Confidence</b><small>Build consistency one session at a time.</small></div>
+  </div>
+</section> -->
+
+<section class="ai-guide shell">
+  <div class="feature-image reveal-left"><img src="/assets/images/yoga-ui-reference" alt="Yoga feature placeholder" onerror="this.src='/assets/images/music.png'"><span>AI LIVE ANALYSIS</span></div>
+  <div class="feature-copy reveal-right"><span class="eyebrow">SMART GUIDANCE</span><h2>Your Yoga.<br><em>Your AI Guide.</em></h2><p>AI can observe your pose, analyze body positioning and provide real-time feedback so you can understand your movement as you practice.</p>
+    <div class="mini-features"><div><b>AI SCAN</b><span>Analyzes body position in real time.</span></div><div><b>SMART GUIDANCE</b><span>Gives instant practice cues.</span></div><div><b>POSE ACCURACY</b><span>Helps you understand alignment.</span></div><div><b>REAL-TIME FEEDBACK</b><span>Immediate guidance while moving.</span></div></div>
+    <a class="btn btn-primary" href="/pages/poses.html">Try AI Yoga →</a>
+  </div>
+</section>
+
+<section class="demo-section shell">
+ <div class="section-intro center reveal"><span class="eyebrow">PRODUCT DEMO</span><h2>See Your AI Yoga Assistant<br><em>in action.</em></h2></div>
+ <div class="video-frame scale-reveal"><video controls playsinline preload="metadata" poster=""><source src="/assets/videos/yoga-ai-demo.mp4" type="video/mp4"></video><div class="video-placeholder">Add your demo video at <b>assets/videos/yoga-ai-demo.mp4</b></div></div>
+ <p class="demo-copy reveal">Open a pose, allow your camera, follow the guide and let the assistant coach you through the session.</p>
+</section>
+
+<section class="quick-benefits shell">
+ <div class="section-intro center reveal"><span class="eyebrow">ONE CALM WORKSPACE</span><h2>Everything you need to practice smarter.</h2></div>
+ <div class="quick-grid">
+  <a href="/pages/poses.html" class="quick-card reveal"><span>🎙</span><b>Voice Control</b><small>Navigate hands-free.</small></a>
+  <a href="/pages/poses.html" class="quick-card reveal"><span>🤖</span><b>AI Guidance</b><small>Real-time pose support.</small></a>
+  <a href="/pages/progress.html" class="quick-card reveal"><span>📊</span><b>Progress Tracking</b><small>See your consistency.</small></a>
+  <a href="/pages/poses.html" class="quick-card reveal"><span>🎵</span><b>Relaxation Music</b><small>Calm audio while practicing.</small></a>
+ </div>
+</section>
+<!-- 
+<section class="showcase shell">
+ <div class="section-intro center reveal"><span class="eyebrow">YOUR AI TOOLKIT</span><h2>Designed around <em>you.</em></h2></div>
+ <div class="showcase-stage">
+   <div class="showcase-person scale-reveal"><div class="person-halo"></div><img src="/assets/images/posture.png" alt="Yoga woman placeholder" onerror="this.src='/assets/images/hero-yoga.png'"></div>
+   <div class="tool-card tool-1 float-card"><b>🎙 Voice Control</b><small>“Next Pose”, “Pause”, “Open Progress”</small></div>
+   <div class="tool-card tool-2 float-card"><b>🤖 AI Yoga Guidance</b><small>“Great! Your pose is correct.”</small></div>
+   <div class="tool-card tool-3 float-card"><b>🎵 Relaxation Music</b><small>Calming audio during practice.</small></div>
+   <div class="tool-card tool-4 float-card"><b>📊 Progress Tracking</b><small>Practice history and streaks.</small></div>
+   <div class="tool-card tool-5 float-card"><b>🧘 Yoga Pose Library</b><small>Explore 25 guided poses.</small></div>
+   <div class="tool-card tool-6 float-card offer"><b>₹99 / 25 POSES</b><small>Full access for 1 month.</small></div>
+ </div>
+</section> -->
+<section class="showcase shell">
+
+  <div class="section-intro center reveal">
+    <span class="eyebrow">YOUR AI TOOLKIT</span>
+    <h2>Designed around <em>you.</em></h2>
+    <p>Everything you need for a smarter, calmer and more personalized yoga practice.</p>
+  </div>
+
+  <div class="showcase-stage">
+
+    <!-- CENTER YOGA IMAGE -->
+    <div class="showcase-person scale-reveal">
+      <div class="person-halo"></div>
+
+      <img
+        src="/assets/images/posture.png"
+        alt="AI Yoga Practice"
+        onerror="this.src='/assets/images/posture.png'"
+      >
+
+      <!-- <div class="ai-live-badge">
+        <span></span> AI YOGA • LIVE
+      </div> -->
+    </div>
+
+
+    <!-- TOOL 1 -->
+    <div class="tool-card tool-1 float-card">
+      <div class="tool-icon voice-icon">
+        <span>⌁</span>
+      </div>
+
+      <div class="tool-content">
+        <b>Voice Control</b>
+        <small>“Next Pose”, “Pause”, “Open Progress”</small>
+      </div>
+    </div>
+
+
+    <!-- TOOL 2 -->
+    <div class="tool-card tool-2 float-card">
+      <div class="tool-icon ai-icon">
+        <span>✦</span>
+      </div>
+
+      <div class="tool-content">
+        <b>AI Yoga Guidance</b>
+        <small>“Great! Your pose is correct.”</small>
+      </div>
+    </div>
+
+
+    <!-- TOOL 3 -->
+    <div class="tool-card tool-3 float-card">
+      <div class="tool-icon music-icon">
+        <span>♫</span>
+      </div>
+
+      <div class="tool-content">
+        <b>Relaxation Music</b>
+        <small>Calming audio during practice.</small>
+      </div>
+    </div>
+
+
+    <!-- TOOL 4 -->
+    <div class="tool-card tool-4 float-card">
+      <div class="tool-icon progress-icon">
+        <span>↗</span>
+      </div>
+
+      <div class="tool-content">
+        <b>Progress Tracking</b>
+        <small>Practice history and streaks.</small>
+      </div>
+    </div>
+
+
+    <!-- TOOL 5 -->
+    <div class="tool-card tool-5 float-card">
+      <div class="tool-icon pose-icon">
+        <span>♧</span>
+      </div>
+
+      <div class="tool-content">
+        <b>Yoga Pose Library</b>
+        <small>Explore 25 guided poses.</small>
+      </div>
+    </div>
+
+
+    <!-- OFFER -->
+    <div class="tool-card tool-6 offer-card">
+      <div class="offer-icon">
+        ₹
+      </div>
+
+      <div class="tool-content">
+        <b>₹99 / 25 POSES</b>
+        <small>Full access for 1 month.</small>
+      </div>
+
+      <span class="offer-tag">BEST VALUE</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="offer-section shell reveal"><div><span class="eyebrow">FULL ACCESS</span><h2>26 poses. One focused month.</h2><p>Explore the complete guided pose library for ₹99 for one month.</p></div><div class="offer-price"><small>MONTHLY</small><strong>₹99</strong><span>26 yoga poses</span><a class="btn btn-primary" href="/pages/poses.html">Explore Poses →</a></div></section>
+
+<section class="final-cta shell reveal"><span class="eyebrow">START TODAY</span><h2>Start Your AI Yoga Journey.</h2><p>A calmer practice, with a smarter guide beside you.</p><a class="btn btn-primary btn-lg" href="/pages/poses.html">Start Practicing →</a></section>
+</main><footer class="site-footer"><div class="shell footer-inner"><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div></footer>
+<script src="/js/common.js"></script><script src="/js/home.js"></script>
+<button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands: OFF — click the mic to listen" aria-label="Turn on voice commands"><span class="voice-cmd-icon">🎤</span><span class="voice-cmd-pulse"></span></button>
+</body></html>

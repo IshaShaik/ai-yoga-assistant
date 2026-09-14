@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Yoga Assistant — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/dashboard.css"></head><body>
+<header class="site-header glass">
+  <a class="brand" href="/index.html" aria-label="AI Yoga Assistant home">
+    <div class="logo-mark">✦</div>
+    <div><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div>
+  </a>
+  <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="siteNav">☰</button>
+  <nav id="siteNav">
+    <a href="/index.html">Home</a>
+    <a href="/pages/poses.html">Poses / Post</a>
+    <a href="/pages/progress.html">Progress</a>
+    <a href="/pages/benefits.html">Benefits</a>
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/about.html">About</a>
+  </nav>
+  <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
+</header>
+<main class="page shell"><div class="page-head reveal"><span class="eyebrow">PERSONAL DASHBOARD</span><h1>Welcome back, <em id="dashName">Practitioner.</em></h1><p>Your dashboard brings your practice totals, streak and feedback into one calm space.</p></div>
+<div id="dashboardLogin" class="panel glass hidden"><h2>Sign in to load your dashboard</h2><p>Practice history is connected to your account.</p><a class="btn btn-primary" href="/pages/poses.html">Open Practice</a></div>
+<div class="cards"><div class="stat glass"><span>Completed Poses</span><strong id="dashCompleted">0</strong></div><div class="stat glass"><span>Day Streak</span><strong id="dashStreak">0</strong></div><div class="stat glass"><span>Practice Minutes</span><strong id="dashMinutes">0</strong></div><div class="stat glass"><span>Average Accuracy</span><strong id="dashAccuracy">—</strong></div></div>
+<div class="feature-grid"><div class="feature glass reveal"><h3>Practice Focus</h3><p>Use the Poses page to start a camera session. The existing MediaPipe pose detection, timer and progress logic remain attached to that workflow.</p><a class="btn btn-primary" href="/pages/poses.html">Start a Pose</a></div><div class="feature glass reveal"><h3>AI Feedback</h3><p id="dashFeedback">Keep practicing to unlock your personal feedback.</p></div></div>
+<div class="cta"><a class="btn btn-primary" href="/pages/progress.html">View Detailed Progress →</a></div></main><footer class="site-footer"><div class="shell footer-inner"><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div></footer><script src="/js/common.js"></script><script src="/js/dashboard.js"></script><button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands: OFF — click the mic to listen" aria-label="Turn on voice commands"><span class="voice-cmd-icon">🎤</span><span class="voice-cmd-pulse"></span></button>
+</body></html>

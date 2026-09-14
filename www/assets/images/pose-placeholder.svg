@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#e3f2fd"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs>
+<rect width="800" height="600" rx="32" fill="url(#g)"/>
+<circle cx="400" cy="190" r="48" fill="#9bcaf0"/><path d="M400 245v150M320 310h160M400 395l-100 100M400 395l100 100" stroke="#3a8bd1" stroke-width="28" stroke-linecap="round"/>
+<text x="400" y="555" text-anchor="middle" font-family="Arial" font-size="28" fill="#315b84">Yoga Pose Placeholder</text></svg>

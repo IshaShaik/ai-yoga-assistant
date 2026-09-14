@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Yoga Assistant — Progress</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/progress.css"></head><body>
+<header class="site-header glass">
+  <a class="brand" href="/index.html" aria-label="AI Yoga Assistant home">
+    <div class="logo-mark">✦</div>
+    <div><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div>
+  </a>
+  <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="siteNav">☰</button>
+  <nav id="siteNav">
+    <a href="/index.html">Home</a>
+    <a href="/pages/poses.html">Poses / Post</a>
+    <a href="/pages/progress.html">Progress</a>
+    <a href="/pages/benefits.html">Benefits</a>
+    <a href="/pages/dashboard.html">Dashboard</a>
+    <a href="/pages/about.html">About</a>
+  </nav>
+  <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
+</header>
+<main class="page shell"><div class="page-head reveal"><span class="eyebrow">YOUR PRACTICE</span><h1>Progress you can <em>see.</em></h1><p>Review your real practice history, streak, time and AI-estimated accuracy from completed sessions.</p></div>
+<div id="loginPrompt" class="panel glass hidden"><h2>Login to see your progress</h2><p>Your completed poses and practice history are saved to your account.</p><a class="btn btn-primary" href="/pages/poses.html">Go to Practice</a></div>
+<div class="cards">
+<div class="stat glass reveal"><span>Poses Completed</span><strong id="dashCompleted">0</strong></div><div class="stat glass reveal"><span>AI Accuracy</span><strong id="dashAccuracy">—</strong></div><div class="stat glass reveal"><span>Total Practice</span><strong id="dashTime">0m</strong></div><div class="stat glass reveal"><span>Day Streak</span><strong id="dashStreak">0</strong></div></div>
+<div class="panel glass reveal"><h2>Last 7 Days</h2><div class="progress-chart" id="progressBars"></div></div>
+<div class="panel glass reveal"><h2>Your AI feedback</h2><p id="progressFeedback">Login and complete a pose to receive personal feedback.</p></div>
+<div class="panel glass reveal feedback-history-panel"><div class="panel-title-row"><div><span class="eyebrow">YOUR VOICE MATTERS</span><h2>Your ratings &amp; feedback</h2></div><div class="rating-summary"><strong id="myAverageRating">—</strong><span>★ average</span><small id="myFeedbackCount">0 reviews</small></div></div><div id="myFeedbackList" class="feedback-list"><div class="empty-feedback">Complete a yoga session and share your experience.</div></div></div>
+<div class="cta"><a class="btn btn-primary" href="/pages/poses.html">Continue Practice →</a></div></main><footer class="site-footer"><div class="shell footer-inner"><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div></footer><script src="/js/common.js"></script><script src="/js/progress.js"></script><button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands: OFF — click the mic to listen" aria-label="Turn on voice commands"><span class="voice-cmd-icon">🎤</span><span class="voice-cmd-pulse"></span></button>
+</body></html>

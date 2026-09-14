@@ -16,6 +16,9 @@ const HOLD_TARGET_SECONDS = 25;
 // How many consecutive good frames we wait for before freezing the target,
 // so we don't lock onto a half-in-frame or transient first detection.
 const CALIBRATION_FRAMES_NEEDED = 6;
+const API_BASE_URL = window.Capacitor?.isNativePlatform?.()
+  ? "https://ai-yoga-assistant-1.onrender.com"
+  : "";
 
 const state = {
   token: localStorage.getItem("yoga_token"),
@@ -100,12 +103,21 @@ function authHeaders() {
 }
 
 async function api(url, options = {}) {
-  const response = await fetch(url, {
+  const response = await fetch(`${API_BASE_URL}${url}`, {
     ...options,
-    headers: { "Content-Type": "application/json", ...authHeaders(), ...(options.headers || {}) }
+    headers: {
+      "Content-Type": "application/json",
+      ...authHeaders(),
+      ...(options.headers || {})
+    }
   });
+
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.message || "Request failed");
+
+  if (!response.ok) {
+    throw new Error(data.message || "Request failed");
+  }
+
   return data;
 }
 
@@ -816,7 +828,11 @@ async function startPose(pose) {
 
   speak(startLine, { force: true });
   startMusic(pose.poseId);
-  await openCamera();
+ const cameraStarted = await openCamera();
+
+if (!cameraStarted) {
+  return;
+}
   // Give the person a moment to actually get into the frame/position before
   // real tracking (the red/green box + calibration) kicks in. The guide
   // structure is already visible on the canvas the whole time via the idle
@@ -849,23 +865,57 @@ function startIdlePreviewLoop() {
   state.idleRafId = requestAnimationFrame(step);
 }
 
+
 async function openCamera() {
+  const video = $("cameraVideo");
+
   $("cameraStatus").innerHTML = "<i></i> Starting camera...";
+
   if (!navigator.mediaDevices?.getUserMedia) {
-    $("voiceText").textContent = T("cameraNotAvailable", state.language);
-    return;
+    $("voiceText").textContent = "Camera is not available in this browser.";
+    $("cameraStatus").innerHTML = "<i></i> Camera unavailable";
+    return false;
   }
+
   try {
     state.stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } },
+      video: {
+        facingMode: { ideal: "user" },
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      },
       audio: false
     });
-    $("cameraVideo").srcObject = state.stream;
+
+    video.srcObject = state.stream;
+    video.muted = true;
+    video.playsInline = true;
+
+    await video.play().catch(() => {});
+
     $("cameraStatus").innerHTML = "<i></i> AI Ready";
+
+    return true;
+
   } catch (error) {
-    $("voiceText").textContent = T("cameraDenied", state.language);
+    console.error("Camera error:", error.name, error.message, error);
+
+    let msg = "Camera could not be opened.";
+
+    if (error.name === "NotAllowedError") {
+      msg = "Camera permission was denied. Please allow camera access.";
+    } else if (error.name === "NotFoundError") {
+      msg = "No camera was found on this device.";
+    } else if (error.name === "NotReadableError") {
+      msg = "Camera is being used by another app.";
+    } else if (error.name === "OverconstrainedError") {
+      msg = "The camera settings are not supported on this device.";
+    }
+
+    $("voiceText").textContent = msg;
     $("cameraStatus").innerHTML = "<i></i> Camera blocked";
-    speak(T("cameraRequired", state.language), { force: true });
+
+    return false;
   }
 }
 
@@ -926,14 +976,30 @@ async function initPoseDetection() {
       const vision = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
       );
-      state.landmarker = await PoseLandmarker.createFromOptions(vision, {
-        baseOptions: {
-          modelAssetPath: "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task",
-          delegate: "GPU"
-        },
-        runningMode: "VIDEO",
-        numPoses: 1
-      });
+     const modelAssetPath =
+  "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task";
+
+try {
+  state.landmarker = await PoseLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath,
+      delegate: "GPU"
+    },
+    runningMode: "VIDEO",
+    numPoses: 1
+  });
+} catch (gpuError) {
+  console.warn("GPU delegate failed. Trying CPU...", gpuError);
+
+  state.landmarker = await PoseLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath,
+      delegate: "CPU"
+    },
+    runningMode: "VIDEO",
+    numPoses: 1
+  });
+}
     }
     trackPose();
   } catch (error) {
@@ -1485,25 +1551,72 @@ function handleVoiceCommand(rawText) {
   console.log("Voice command heard:", text);
 
   // Check explicit ON/UNMUTE commands BEFORE MUTE, because "unmute" contains "mute".
-  if (/\b(unmute|turn on|enable)\b.*\b(ai|assistant|guidance)\b|\b(ai|assistant|guidance)\b.*\b(on|enabled|unmute)\b/.test(text)) {
-    setVoiceEnabled(true);
-    return;
+ // ---- AI voice ON / OFF ----
+if (
+  text.includes("unmute ai") ||
+  text.includes("unmute assistant") ||
+  text.includes("turn on ai") ||
+  text.includes("turn on assistant") ||
+  text.includes("enable ai") ||
+  text.includes("enable assistant") ||
+  text.includes("ai on") ||
+  text.includes("assistant on")
+) {
+  setVoiceEnabled(true);
+  return;
+}
+
+if (
+  text.includes("mute ai") ||
+  text.includes("mute assistant") ||
+  text.includes("turn off ai") ||
+  text.includes("turn off assistant") ||
+  text.includes("disable ai") ||
+  text.includes("disable assistant") ||
+  text.includes("ai off") ||
+  text.includes("assistant off") ||
+  text.includes("mute guidance")
+) {
+  setVoiceEnabled(false);
+  return;
+}
+ // ---- Music ON / OFF ----
+if (
+  text.includes("unmute music") ||
+  text.includes("turn on music") ||
+  text.includes("enable music") ||
+  text.includes("play music") ||
+  text.includes("resume music") ||
+  text === "music on"
+) {
+  state.musicEnabled = true;
+
+  if (state.musicPaused) {
+    toggleMusicPause();
+  } else {
+    state.music?.play().catch(() => {});
+    state.ambient?.ctx.resume().catch(() => {});
   }
-  if (/\b(mute|turn off|disable)\b.*\b(ai|assistant|guidance)\b|\b(ai|assistant|guidance)\b.*\b(off|muted|mute)\b/.test(text)) {
-    setVoiceEnabled(false);
-    return;
+
+  return;
+}
+
+if (
+  text.includes("mute music") ||
+  text.includes("turn off music") ||
+  text.includes("disable music") ||
+  text.includes("stop music") ||
+  text.includes("pause music") ||
+  text === "music off"
+) {
+  state.musicEnabled = false;
+
+  if (!state.musicPaused) {
+    toggleMusicPause();
   }
-  if (/\b(unmute|turn on|enable|play)\b.*\bmusic\b|\bmusic\b.*\b(on|enabled|play|unmute)\b/.test(text)) {
-    state.musicEnabled = true;
-    if (state.musicPaused) toggleMusicPause();
-    else { state.music?.play().catch(()=>{}); state.ambient?.ctx.resume().catch(()=>{}); }
-    return;
-  }
-  if (/\b(mute|turn off|stop|pause)\b.*\bmusic\b|\bmusic\b.*\b(off|muted|stop|pause)\b/.test(text)) {
-    if (!state.musicPaused) toggleMusicPause();
-    else state.musicEnabled = false;
-    return;
-  }
+
+  return;
+}
   if (/^(next|next pose|go next|next post|next yoga pose|move to next)$/.test(text) || text.includes("next pose")) {
     handleVoiceNext();
     return;
@@ -1526,10 +1639,19 @@ function handleVoiceCommand(rawText) {
     window.location.href = "/pages/benefits.html";
     return;
   }
-  if (text === "home" || text.includes("go home") || text.includes("open home") || text.includes("show home")) {
-    window.location.href = "/index.html";
-    return;
-  }
+ if (
+  text === "home" ||
+  text.includes("go home") ||
+  text.includes("open home") ||
+  text.includes("show home") ||
+  text.includes("home page") ||
+  text.includes("back to home") ||
+  text.includes("back home")
+) {
+  stopCameraSession();
+  window.location.href = "/index.html";
+  return;
+}
   if (text.includes("start yoga")) {
     if (!state.currentPose && state.poses[0]) openLanguageChooser(state.poses[0]);
     return;
@@ -1545,25 +1667,55 @@ function handleVoiceCommand(rawText) {
 
 window.handleVoiceCommand = handleVoiceCommand;
 
+
 function setVoiceCommandEnabled(enabled) {
   const btn = $("voiceCmdBtn");
   const recognition = getVoiceRecognition();
+
   if (!recognition) {
     state.voiceCmdEnabled = false;
-    if (btn) btn.title = "Voice commands are not supported in this browser";
+
+    if (btn) {
+      btn.classList.remove("listening");
+      btn.title = "Voice commands are not supported in this browser";
+    }
+
     return;
   }
+
   state.voiceCmdEnabled = enabled;
-  recognition.lang = state.language === "hi" ? "hi-IN" : "en-IN";
+
+  recognition.lang = state.language === "hi"
+    ? "hi-IN"
+    : "en-IN";
+
   localStorage.setItem("yoga_mic_on", enabled ? "1" : "0");
+
   if (enabled) {
-    try { recognition.start(); } catch { /* already listening */ }
+    try {
+      recognition.start();
+    } catch (error) {
+      console.warn("Recognition start:", error);
+    }
+
     btn?.classList.add("listening");
-    if (btn) btn.title = "Voice commands: ON — say 'next', 'mute AI', 'mute music', 'progress page' or 'home page' (tap to turn off)";
+
+    if (btn) {
+      btn.title =
+        "Voice commands ON — say next pose, mute AI, mute music or home page";
+    }
   } else {
-    try { recognition.stop(); } catch { /* not listening */ }
+    try {
+      recognition.stop();
+    } catch (error) {
+      console.warn("Recognition stop:", error);
+    }
+
     btn?.classList.remove("listening");
-    if (btn) btn.title = "Voice commands: OFF (tap to turn on)";
+
+    if (btn) {
+      btn.title = "Voice commands OFF — tap to turn on";
+    }
   }
 }
 
@@ -1595,7 +1747,7 @@ $("nextPoseBtn")?.addEventListener("click", goToNextPose);
 $("voiceToggleBtn")?.addEventListener("click", () => setVoiceEnabled(!state.voiceEnabled));
 $("musicToggleBtn")?.addEventListener("click", toggleMusicPause);
 $("voiceCmdBtn")?.addEventListener("click", () => setVoiceCommandEnabled(!state.voiceCmdEnabled));
-if (localStorage.getItem("yoga_mic_on") === "1") setTimeout(() => setVoiceCommandEnabled(true), 300);
+// if (localStorage.getItem("yoga_mic_on") === "1") setTimeout(() => setVoiceCommandEnabled(true), 300);
 
 document.querySelectorAll("[data-lang-choice]").forEach((btn) => {
   btn.addEventListener("click", () => chooseLanguage(btn.dataset.langChoice));

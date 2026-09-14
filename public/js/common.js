@@ -36,6 +36,7 @@ function updateCommonAuth() {
 function setupAuthButton() {
   const btn = $common("authBtn");
   if (!btn) return;
+  if (location.pathname === "/pages/poses.html") return;
   btn.addEventListener("click", () => {
     const user = JSON.parse(localStorage.getItem("yoga_user") || "null");
     // Logged-in users land on the dashboard; logged-out users go straight
