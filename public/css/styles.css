@@ -552,3 +552,21 @@ h1{font-size:clamp(44px,6vw,76px);line-height:.98;letter-spacing:-3px;margin:18p
         object-fit: contain;
     }
 }
+.install-app-btn {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(31, 111, 235, 0.9);
+  color: #fff;
+  padding: 9px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  transition: 0.2s ease;
+}
+
+.install-app-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}

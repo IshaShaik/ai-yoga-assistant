@@ -61,6 +61,9 @@
     <a href="/pages/benefits.html">Benefits</a>
     <a href="/pages/dashboard.html">Dashboard</a>
     <a href="/pages/about.html">About</a>
+     <button id="installAppBtn" class="install-app-btn">
+    📲 Install App
+  </button>
   </nav>
   <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
 </header>
@@ -377,4 +380,50 @@
     });
   }
 </script> 
+<script>
+  let deferredInstallPrompt = null;
+
+  const installAppBtn = document.getElementById("installAppBtn");
+
+  // Browser gives the install prompt
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+
+    deferredInstallPrompt = event;
+
+    console.log("PWA install prompt available");
+  });
+
+  // Install button clicked
+  installAppBtn?.addEventListener("click", async () => {
+
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+
+      const { outcome } = await deferredInstallPrompt.userChoice;
+
+      console.log("Install result:", outcome);
+
+      deferredInstallPrompt = null;
+
+    } else {
+      // If browser doesn't provide automatic prompt
+      alert(
+        "To install AI Yoga Assistant:\n\n" +
+        "Chrome ⋮ menu → Install app / Add to Home screen"
+      );
+    }
+  });
+
+  // App successfully installed
+  window.addEventListener("appinstalled", () => {
+    console.log("AI Yoga Assistant installed");
+
+    if (installAppBtn) {
+      installAppBtn.style.display = "none";
+    }
+
+    deferredInstallPrompt = null;
+  });
+</script>
 </body></html>
