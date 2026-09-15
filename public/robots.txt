@@ -1,0 +1,19 @@
+# Allow all web search engines (Google, Bing, Yahoo)
+User-agent: *
+Allow: /
+
+# Allow AI crawlers to read the website
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+# Sitemap path
+Sitemap: https://ai-yoga-assistant-1.onrender.com/sitemap.xml

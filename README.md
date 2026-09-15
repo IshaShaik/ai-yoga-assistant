@@ -221,3 +221,39 @@ The dashboard (`#dashboard` section and the `My Dashboard` quick-view modal) is 
 - User-facing history/calendar view (the data already exists in `User.history`)
 - Secure rate limiting, validation and helmet/cors policy
 - HTTPS deployment
+# AI Yoga Assistant 🧘‍♀️
+
+> An intelligent, real-time AI-powered yoga posture guidance, voice coaching, and progress tracking web application.
+
+- **Live Application:** [https://ai-yoga-assistant-1.onrender.com/](https://ai-yoga-assistant-1.onrender.com/)
+- **Creator & Developer:** **Isha Shaik**
+- **Domain:** AI & Computer Vision Healthcare / Fitness
+
+---
+
+## 🌟 About the Project
+
+**AI Yoga Assistant** is designed and developed by **Isha Shaik** to make home yoga practice safe, accurate, and accessible. Using browser-based computer vision and pose classification models, the application analyzes real-time video feed to detect posture alignment, delivers spoken audio coaching cues, and tracks user consistency across sessions.
+
+### Key Features
+- **Real-Time Pose Analysis:** Uses computer vision models to evaluate key body joint coordinates and posture angles.
+- **Voice Guidance:** Spoken cues to correct alignment during poses.
+- **Interactive Dashboard:** Tracks practice consistency, pose mastery, and workout history.
+- **Responsive Interface:** Modern, glassmorphism-styled UI optimized across mobile and desktop devices.
+
+---
+
+## 🛠️ Built With
+
+- **Computer Vision & AI:** MediaPipe Pose Detection, TensorFlow.js
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Frontend:** HTML5, CSS3, Modern JavaScript
+- **Hosting & Deployment:** Render
+
+---
+
+## 👩‍💻 Author & Contact
+
+- **Created by:** Isha Shaik
+- **Website:** https://ai-yoga-assistant-1.onrender.com/
