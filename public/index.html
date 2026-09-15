@@ -61,7 +61,7 @@
     <a href="/pages/benefits.html">Benefits</a>
     <a href="/pages/dashboard.html">Dashboard</a>
     <a href="/pages/about.html">About</a>
-     <button id="installAppBtn" class="install-app-btn">
+  <button id="installAppBtn" class="install-app-btn" style="display: none;">
     📲 Install App
   </button>
   </nav>
@@ -380,50 +380,55 @@
     });
   }
 </script> 
+<!-- Service Worker Registration wala script (Isko aise hi rehne dein) -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
+</script> 
+
+<!-- YAHAN APNA NAYA CODE PASTE KAREIN 👇 -->
 <script>
   let deferredInstallPrompt = null;
-
   const installAppBtn = document.getElementById("installAppBtn");
 
-  // Browser gives the install prompt
+  // 1. Browser ne background check pass kar liya aur install ke liye ready hai
   window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-
-    deferredInstallPrompt = event;
-
+    event.preventDefault(); // Browser ka default prompt rokein
+    deferredInstallPrompt = event; // Event ko save karein
+    
+    // 2. Sirf ab is button ko screen par show karein
+    if (installAppBtn) {
+      installAppBtn.style.display = "inline-block"; 
+    }
     console.log("PWA install prompt available");
   });
 
-  // Install button clicked
+  // 3. Jab user button par click kare
   installAppBtn?.addEventListener("click", async () => {
-
     if (deferredInstallPrompt) {
+      // Chrome ka default install popup show karein
       deferredInstallPrompt.prompt();
-
       const { outcome } = await deferredInstallPrompt.userChoice;
-
       console.log("Install result:", outcome);
-
+      
+      // Ek baar use hone ke baad reset kar dein
       deferredInstallPrompt = null;
-
-    } else {
-      // If browser doesn't provide automatic prompt
-      alert(
-        "To install AI Yoga Assistant:\n\n" +
-        "Chrome ⋮ menu → Install app / Add to Home screen"
-      );
+      installAppBtn.style.display = "none"; // Install hone ke baad button wapas hide kar dein
     }
   });
 
-  // App successfully installed
+  // 4. App successfully install hone ke baad
   window.addEventListener("appinstalled", () => {
     console.log("AI Yoga Assistant installed");
-
     if (installAppBtn) {
-      installAppBtn.style.display = "none";
+      installAppBtn.style.display = "none"; // Button ko hide kar dein
     }
-
     deferredInstallPrompt = null;
   });
 </script>
+</body>
+</html>
 </body></html>
