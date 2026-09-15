@@ -1,6 +1,6 @@
 {
-  "name": "Aapka App Name",
-  "short_name": "App",
+  "name": "AI Yoga Assistant",
+  "short_name": "AI Yoga",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0d1117",
@@ -12,7 +12,7 @@
       "type": "image/png"
     },
     {
-      "src": "/assets//images/icon-512.png", 
+      "src": "/assets/images/icon-512.png", 
       "sizes": "512x512",
       "type": "image/png"
     }
