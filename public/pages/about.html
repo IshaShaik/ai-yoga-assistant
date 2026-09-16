@@ -1,23 +1,222 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Yoga Assistant — About</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/about.css"></head><body>
-<header class="site-header glass">
-  <a class="brand" href="/index.html" aria-label="AI Yoga Assistant home">
-    <div class="logo-mark">✦</div>
-    <div><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div>
-  </a>
-  <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="siteNav">☰</button>
-  <nav id="siteNav">
-    <a href="/index.html">Home</a>
-    <a href="/pages/poses.html">Poses / Post</a>
-    <a href="/pages/progress.html">Progress</a>
-    <a href="/pages/benefits.html">Benefits</a>
-    <a href="/pages/dashboard.html">Dashboard</a>
-    <a href="/pages/about.html">About</a>
-  </nav>
-  <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
-</header>
-<main class="page shell"><div class="page-head reveal"><span class="eyebrow">ABOUT THE PRODUCT</span><h1>Yoga that feels <em>personal.</em></h1><p>AI Yoga Assistant combines browser-based camera tracking, voice coaching, pose guidance, music and progress tools in one focused wellness experience.</p></div>
-<div class="feature-grid"><div class="feature glass reveal"><h3>🎯 Live Posture Guidance</h3><p>Each pose has a target guide and live body-position scoring to help you understand what to adjust while practicing.</p></div><div class="feature glass reveal"><h3>🗣 Natural Voice Coaching</h3><p>Choose English or Hinglish for spoken cues. Voice commands can also navigate supported practice actions hands-free.</p></div><div class="feature glass reveal"><h3>🎵 Calming Music</h3><p>Practice with the existing per-pose audio system, including its browser-generated ambient fallback.</p></div><div class="feature glass reveal"><h3>📈 Progress You Can See</h3><p>Completed sessions, practice time, streaks and AI-estimated accuracy are connected to the existing backend history.</p></div></div>
-<div class="panel glass quote reveal">AI supports your practice — it does not replace professional medical or fitness advice.</div>
-<div class="cta"><a class="btn btn-primary" href="/pages/poses.html">Meet Your AI Yoga Trainer →</a></div></main><footer class="site-footer"><div class="shell footer-inner"><strong>AI Yoga Assistant</strong><span>Breathe • Balance • Be Better</span></div></footer><script src="/js/common.js"></script><script src="/js/about.js"></script><button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands: OFF — click the mic to listen" aria-label="Turn on voice commands"><span class="voice-cmd-icon">🎤</span><span class="voice-cmd-pulse"></span></button>
-</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About AI Yoga Assistant | Intelligent Posture & Wellness</title>
+  <meta name="description" content="AI-powered real-time pose guidance, voice coaching, and personalized wellness analytics.">
+  <meta name="author" content="Isha Shaik">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header glass">
+    <a class="brand" href="/index.html" aria-label="AI Yoga Assistant Home">
+      <div class="logo-mark">✦</div>
+      <div>
+        <strong>AI Yoga Assistant</strong>
+        <span>Breathe • Balance • Be Better</span>
+      </div>
+    </a>
+
+    <button id="mobileNavToggle" class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+      ☰
+    </button>
+
+    <nav id="siteNav">
+      <a href="/index.html">Home</a>
+      <a href="/pages/poses.html">Poses</a>
+      <a href="/pages/progress.html">Progress</a>
+      <a href="/pages/benefits.html">Benefits</a>
+      <a href="/pages/dashboard.html">Dashboard</a>
+      <a href="/pages/about.html" class="active">About</a>
+    </nav>
+
+    <button class="btn btn-primary nav-login" id="authBtn">Login / Sign up</button>
+  </header>
+
+  <!-- MAIN -->
+  <main class="page shell">
+
+    <!-- HERO -->
+    <section class="about-hero reveal">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        AI-POWERED COMPUTER VISION & WELLNESS
+      </div>
+      <span class="eyebrow">NEXT-GEN YOGA TRAINING</span>
+      <h1>Yoga that feels <span>intelligent.</span></h1>
+      <p class="hero-description">
+        AI Yoga Assistant combines client-side landmark tracking, intelligent voice coaching, and session metrics into one seamless interactive interface designed to refine your practice at home.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/pages/poses.html">Start Live Practice →</a>
+        <a class="btn btn-secondary" href="#tech">Explore Technology</a>
+      </div>
+    </section>
+
+    <!-- TRUST METRICS -->
+    <section class="trust-grid reveal">
+      <div class="trust-card glass">
+        <div class="trust-icon">⚡</div>
+        <div>
+          <strong>Real-Time AI</strong>
+          <span>Instant landmark feedback</span>
+        </div>
+      </div>
+      <div class="trust-card glass">
+        <div class="trust-icon">🔒</div>
+        <div>
+          <strong>Local Vision</strong>
+          <span>Camera stream never stored</span>
+        </div>
+      </div>
+      <div class="trust-card glass">
+        <div class="trust-icon">🎙️</div>
+        <div>
+          <strong>Audio Guidance</strong>
+          <span>Hands-free voice coaching</span>
+        </div>
+      </div>
+      <div class="trust-card glass">
+        <div class="trust-icon">💳</div>
+        <div>
+          <strong>Razorpay Ready</strong>
+          <span>End-to-end encrypted checkout</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES -->
+    <section class="section-block reveal" id="tech">
+      <div class="section-heading">
+        <span class="eyebrow">SYSTEM CAPABILITIES</span>
+        <h2>Precision posture, <span>guided by vision.</span></h2>
+        <p>A unified suite built for focused and distraction-free physical movement.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature glass">
+          <div class="feature-number">01</div>
+          <div class="feature-icon">🎯</div>
+          <h3>Posture Landmark Alignment</h3>
+          <p>Calculates joint angles in real time using client-side body coordinate mapping to alert you when your alignment drifts.</p>
+        </article>
+
+        <article class="feature glass">
+          <div class="feature-number">02</div>
+          <div class="feature-icon">🗣️</div>
+          <h3>Multi-Language Voice Cues</h3>
+          <p>Dynamic audio feedback in English and Hinglish provides posture correction prompts without forcing you to look at the screen.</p>
+        </article>
+
+        <article class="feature glass">
+          <div class="feature-number">03</div>
+          <div class="feature-icon">📊</div>
+          <h3>Session Analytics</h3>
+          <p>Monitors hold duration, balance stability, and overall form accuracy across every routine you complete.</p>
+        </article>
+
+        <article class="feature glass">
+          <div class="feature-number">04</div>
+          <div class="feature-icon">🎧</div>
+          <h3>Adaptive Soundscapes</h3>
+          <p>Integrated ambient frequency generators and relaxation audio help maintain focus during deep stretching routines.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE & PRIVACY -->
+    <section class="privacy-section glass reveal">
+      <div class="privacy-icon">📷</div>
+      <div class="privacy-content">
+        <span class="eyebrow">DATA & VISION PIPELINE</span>
+        <h2>Client-Side Camera Processing</h2>
+        <p>Your privacy is central to our design. Camera frames are processed directly inside your browser’s runtime to identify skeletal landmarks—no video feeds or photos are ever saved or transmitted to a cloud server.</p>
+        <div class="info-list">
+          <div class="info-item">
+            <span>✓</span>
+            <div>
+              <strong>Pure in-browser inferencing</strong>
+              <p>Vision calculations run locally on your device hardware.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <span>✓</span>
+            <div>
+              <strong>Explicit browser authorization</strong>
+              <p>Camera hardware activates only while practicing and stops immediately when you exit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVELOPER SECTION -->
+    <section class="developer-card glass reveal">
+      <div class="developer-avatar">IS</div>
+      <div class="developer-content">
+        <span class="eyebrow">CREATOR & ENGINEER</span>
+        <h2>Engineered by Isha Shaik</h2>
+        <p>AI Yoga Assistant was architected and built by Isha Shaik as an intelligent full-stack wellness platform integrating web-based computer vision, modern frontend architecture, and responsive cloud services.</p>
+        <div class="developer-links">
+          <a href="https://github.com/IshaShaik" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span>GitHub Profile</span> ↗
+          </a>
+          <a href="https://www.linkedin.com/in/isha-shek-5238a9248/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <span>LinkedIn Network</span> ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER & SUPPORT -->
+    <section class="disclaimer glass reveal">
+      <div class="disclaimer-icon">⚕️</div>
+      <div>
+        <h3>Wellness Disclaimer</h3>
+        <p>AI Yoga Assistant provides motion-assisted guidance and is not a substitute for clinical medical advice or physical therapy. Practice within your individual capacity.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta reveal">
+      <a class="btn btn-primary btn-large" href="/pages/poses.html">Meet Your AI Yoga Trainer →</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div class="footer-brand">
+        <strong>AI Yoga Assistant</strong>
+        <span>Breathe • Balance • Be Better</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/pages/about.html">About</a>
+        <a href="/pages/poses.html">Poses</a>
+        <a href="/pages/dashboard.html">Dashboard</a>
+      </div>
+      <div class="footer-copy">
+        © <span id="currentYear"></span> AI Yoga Assistant • Built by Isha Shaik
+      </div>
+    </div>
+  </footer>
+
+  <!-- VOICE BUTTON -->
+  <button id="voiceCmdBtn" class="voice-cmd-fab" title="Voice commands" aria-label="Toggle voice commands">
+    <span class="voice-cmd-icon">🎤</span>
+    <span class="voice-cmd-pulse"></span>
+  </button>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/about.js"></script>
+</body>
+</html>
